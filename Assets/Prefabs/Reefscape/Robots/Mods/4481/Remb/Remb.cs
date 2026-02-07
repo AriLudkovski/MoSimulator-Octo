@@ -128,12 +128,14 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
                     break;
                 case ReefscapeSetpoints.L1:
                     SetSetpoint(l1);
+                    _coralController.SetTargetState(coralStowState);
                     break;
                 case ReefscapeSetpoints.Stack:
                     SetSetpoint(lollipop);
 
                     break;
                 case ReefscapeSetpoints.L2:
+                    _coralController.SetTargetState(coralStowState);
                     SetSetpoint(l2);
                     break;
                 case ReefscapeSetpoints.LowAlgae:
@@ -141,6 +143,7 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
                     _algaeController.RequestIntake(algaeIntake, IntakeAction.IsPressed());
                     break;
                 case ReefscapeSetpoints.L3:
+                    _coralController.SetTargetState(coralStowState);
                     SetSetpoint(l3);
                     break;
                 case ReefscapeSetpoints.HighAlgae:
