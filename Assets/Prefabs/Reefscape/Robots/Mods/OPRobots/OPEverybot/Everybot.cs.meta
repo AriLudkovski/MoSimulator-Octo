@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 871aea80f45a54c468ce047608fbf98a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - blueBumperMaterial: {instanceID: 0}
+  - redBumperMaterial: {instanceID: 0}
+  - algaeArm: {instanceID: 0}
+  - climber: {instanceID: 0}
+  - Stow: {instanceID: 0}
+  - Intake: {instanceID: 0}
+  - L1: {instanceID: 0}
+  - L1Place: {instanceID: 0}
+  - AlgaeIntake: {instanceID: 0}
+  - coralIntake: {instanceID: 0}
+  - algaeIntake: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
