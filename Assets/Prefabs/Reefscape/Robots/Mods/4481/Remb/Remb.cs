@@ -38,6 +38,7 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
 
         [SerializeField] private float vertical;
         [SerializeField] private float horizontal;
+        [SerializeField] private float bargeDelay;
 
         [SerializeField] private ReefscapeGamePieceIntake coralIntake;
         [SerializeField] private ReefscapeGamePieceIntake algaeIntake;
@@ -46,6 +47,8 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
         [SerializeField] private GamePieceState coralL4State;
         [SerializeField] private GamePieceState algaeStowState;
 
+
+        private bool algaePlaced = false;
         private RobotGamePieceController<ReefscapeGamePiece, ReefscapeGamePieceData>.GamePieceControllerNode _coralController;
         private RobotGamePieceController<ReefscapeGamePiece, ReefscapeGamePieceData>.GamePieceControllerNode _algaeController;
 
@@ -62,6 +65,7 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
             RobotGamePieceController.SetPreload(coralStowState);
             base.Start();
 
+            algaePlaced = false;
             arm.SetPid(armPid);
             _elevatorTargetHeight = 0;
             _armTargetAngle = 0;
@@ -106,8 +110,12 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
 
         private void FixedUpdate()
         {
-            // bool hasAlgae = _algaeController.HasPiece();
-            // bool hasCoral = _coralController.HasPiece();
+            if (!OuttakeAction.IsPressed())
+            {
+                algaePlaced = false;
+            }
+            bool hasAlgae = _algaeController.HasPiece();
+            bool hasCoral = _coralController.HasPiece();
             switch (CurrentSetpoint)
             {
                 case ReefscapeSetpoints.Stow:
@@ -117,13 +125,20 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
                     // _algaeController.RequestIntake(algaeIntake, true);
                     _coralController.RequestIntake(coralIntake, true);
                     _coralController.SetTargetState(coralStowState);
+                    if (CurrentRobotMode == ReefscapeRobotMode.Coral && !hasCoral) ;
+                    {
+                        SetSetpoint(stow);
 
+                    }
                     break;
                 case ReefscapeSetpoints.Place:
                     if (LastSetpoint == ReefscapeSetpoints.Barge)
                     {
-                        SetSetpoint(bargePlace);
+                        StartCoroutine(ScoreBargeAlgae());
+
+                        break;
                     }
+                    algaePlaced = true;
                     PlacePiece();
                     break;
                 case ReefscapeSetpoints.L1:
@@ -172,6 +187,18 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
             UpdateSetpoints();
         }
 
+
+        public IEnumerator ScoreBargeAlgae()
+        {
+            if (!algaePlaced)
+            {
+                SetSetpoint(bargePlace);
+
+                yield return new WaitForSeconds(bargeDelay);
+
+                PlacePiece();
+            }
+        }
         private void PlacePiece()
         {
             if (_algaeController.HasPiece())
