@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8a12d115c28e91469126d8a99d437f9, type: 3}
   m_Name: BargeScore
   m_EditorClassIdentifier: 
-  elevatorHeight: 36.7
-  armAngle: -119.9
+  elevatorHeight: 34
+  armAngle: 215

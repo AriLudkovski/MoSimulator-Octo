@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8a12d115c28e91469126d8a99d437f9, type: 3}
   m_Name: L4
   m_EditorClassIdentifier: 
-  elevatorHeight: 35
-  armAngle: -133.8
+  elevatorHeight: 34
+  armAngle: -130.7

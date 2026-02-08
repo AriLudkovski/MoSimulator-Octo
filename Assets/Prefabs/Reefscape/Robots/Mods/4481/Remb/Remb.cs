@@ -125,11 +125,14 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
                     // _algaeController.RequestIntake(algaeIntake, true);
                     _coralController.RequestIntake(coralIntake, true);
                     _coralController.SetTargetState(coralStowState);
-                    if (CurrentRobotMode == ReefscapeRobotMode.Coral && !hasCoral) ;
+                    if ((CurrentRobotMode == ReefscapeRobotMode.Coral && !hasCoral) ||
+                    (LastSetpoint == ReefscapeSetpoints.Barge && !hasAlgae) ||
+                    (CurrentRobotMode == ReefscapeRobotMode.Algae && hasAlgae))
                     {
                         SetSetpoint(stow);
 
                     }
+
                     break;
                 case ReefscapeSetpoints.Place:
                     if (LastSetpoint == ReefscapeSetpoints.Barge)
@@ -170,7 +173,6 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
                     _coralController.SetTargetState(coralL4State);
                     break;
                 case ReefscapeSetpoints.Processor:
-                    SetSetpoint(stow);
                     break;
                 case ReefscapeSetpoints.Barge:
                     SetSetpoint(bargePrep);
@@ -201,7 +203,7 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
         }
         private void PlacePiece()
         {
-            if (_algaeController.HasPiece())
+            if (_algaeController.HasPiece() && ((CurrentRobotMode == ReefscapeRobotMode.Algae) || (!_coralController.HasPiece() && LastSetpoint == ReefscapeSetpoints.Barge)))
             {
                 _algaeController.ReleaseGamePieceWithForce(new Vector3(0, horizontal, vertical));
             }
@@ -211,7 +213,7 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
                 {
                     _coralController.ReleaseGamePieceWithForce(new Vector3(0, 0, -5));
                 }
-                else
+                else if (CurrentRobotMode == ReefscapeRobotMode.Coral)
                 {
                     _coralController.ReleaseGamePieceWithForce(new Vector3(0, 0, 10));
                 }
