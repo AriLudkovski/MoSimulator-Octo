@@ -18,9 +18,14 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
 
         [SerializeField] private GenericElevator elevator;
         [SerializeField] private GenericJoint arm;
+        [SerializeField] private GenericJoint climbArm;
+        [SerializeField] private GenericJoint climbWrist;
+        [SerializeField] private GenericJoint droppyThing;
 
         [SerializeField] private PidConstants armPid;
         [SerializeField] private PidConstants elevatorPid;
+        [SerializeField] private PidConstants climbArmPid;
+        [SerializeField] private PidConstants climbWristPid;
 
         [SerializeField] private Rembrantsetpoint stow;
         [SerializeField] private Rembrantsetpoint intake;
@@ -34,6 +39,8 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
         [SerializeField] private Rembrantsetpoint bargePlace;
         [SerializeField] private Rembrantsetpoint groundAlgae;
         [SerializeField] private Rembrantsetpoint lollipop;
+        [SerializeField] private Rembrantsetpoint climb;
+        [SerializeField] private Rembrantsetpoint climbed;
 
 
         [SerializeField] private float vertical;
@@ -57,7 +64,8 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
 
         private float _elevatorTargetHeight;
         private float _armTargetAngle;
-
+        private float _climbArmTargetAngle;
+        private float _climbWristTargetAngle;
 
 
         protected override void Start()
@@ -67,8 +75,13 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
 
             algaePlaced = false;
             arm.SetPid(armPid);
+            climbArm.SetPid(climbArmPid);
+            climbWrist.SetPid(climbWristPid);
+            droppyThing.SetPid(climbArmPid);
             _elevatorTargetHeight = 0;
             _armTargetAngle = 0;
+            _climbArmTargetAngle = 0;
+            _climbWristTargetAngle = 0;
 
             RobotGamePieceController.SetPreload(coralStowState);
             SetRobotMode(ReefscapeRobotMode.Coral);
@@ -92,12 +105,17 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
         {
             _elevatorTargetHeight = setpoint.elevatorHeight;
             _armTargetAngle = setpoint.armAngle;
+            _climbArmTargetAngle = setpoint.climbArmAngle;
+            _climbWristTargetAngle = setpoint.climbWristAngle;
         }
 
         private void UpdateSetpoints()
         {
             elevator.SetTarget(_elevatorTargetHeight);
             arm.SetTargetAngle(_armTargetAngle).withAxis(JointAxis.X);
+            climbArm.SetTargetAngle(_climbArmTargetAngle).withAxis(JointAxis.X);
+            climbWrist.SetTargetAngle(_climbWristTargetAngle).withAxis(JointAxis.X);
+            droppyThing.SetTargetAngle(_climbArmTargetAngle).withAxis(JointAxis.X);
         }
 
 

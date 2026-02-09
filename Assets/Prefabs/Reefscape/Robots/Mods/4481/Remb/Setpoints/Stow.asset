@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: Stow
   m_EditorClassIdentifier: 
   elevatorHeight: 0
+  armAngle: 0
+  climbArmAngle: 83.71
+  climbWristAngle: -89.74

@@ -7,5 +7,7 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
     {
         [Tooltip("Inches")] public float elevatorHeight;
         [Tooltip("Degree")] public float armAngle;
+        [Tooltip("Degree")] public float climbArmAngle;
+        [Tooltip("Degree")] public float climbWristAngle;
     }
 }
