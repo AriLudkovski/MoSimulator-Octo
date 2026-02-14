@@ -9,5 +9,6 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
         [Tooltip("Degree")] public float armAngle;
         [Tooltip("Degree")] public float climbArmAngle;
         [Tooltip("Degree")] public float climbWristAngle;
+        [Tooltip("Degree")] public float droppyThingAngle;
     }
 }

@@ -26,6 +26,7 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
         [SerializeField] private PidConstants elevatorPid;
         [SerializeField] private PidConstants climbArmPid;
         [SerializeField] private PidConstants climbWristPid;
+        [SerializeField] private PidConstants droppyThingPid;
 
         [SerializeField] private Rembrantsetpoint stow;
         [SerializeField] private Rembrantsetpoint intake;
@@ -54,7 +55,6 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
         [SerializeField] private GamePieceState coralL4State;
         [SerializeField] private GamePieceState algaeStowState;
 
-
         private bool algaePlaced = false;
         private RobotGamePieceController<ReefscapeGamePiece, ReefscapeGamePieceData>.GamePieceControllerNode _coralController;
         private RobotGamePieceController<ReefscapeGamePiece, ReefscapeGamePieceData>.GamePieceControllerNode _algaeController;
@@ -66,7 +66,7 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
         private float _armTargetAngle;
         private float _climbArmTargetAngle;
         private float _climbWristTargetAngle;
-
+        private float _droppyThingTargetAngle;
 
         protected override void Start()
         {
@@ -77,11 +77,12 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
             arm.SetPid(armPid);
             climbArm.SetPid(climbArmPid);
             climbWrist.SetPid(climbWristPid);
-            droppyThing.SetPid(climbArmPid);
+            droppyThing.SetPid(droppyThingPid);
             _elevatorTargetHeight = 0;
             _armTargetAngle = 0;
             _climbArmTargetAngle = 0;
             _climbWristTargetAngle = 0;
+            _droppyThingTargetAngle = 0;
 
             RobotGamePieceController.SetPreload(coralStowState);
             SetRobotMode(ReefscapeRobotMode.Coral);
@@ -107,6 +108,7 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
             _armTargetAngle = setpoint.armAngle;
             _climbArmTargetAngle = setpoint.climbArmAngle;
             _climbWristTargetAngle = setpoint.climbWristAngle;
+            _droppyThingTargetAngle = setpoint.droppyThingAngle;
         }
 
         private void UpdateSetpoints()
@@ -115,7 +117,7 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
             arm.SetTargetAngle(_armTargetAngle).withAxis(JointAxis.X);
             climbArm.SetTargetAngle(_climbArmTargetAngle).withAxis(JointAxis.X);
             climbWrist.SetTargetAngle(_climbWristTargetAngle).withAxis(JointAxis.X);
-            droppyThing.SetTargetAngle(_climbArmTargetAngle).withAxis(JointAxis.X);
+            droppyThing.SetTargetAngle(_droppyThingTargetAngle).withAxis(JointAxis.X);
         }
 
 
@@ -199,8 +201,10 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
                     SetState(ReefscapeSetpoints.Stow);
                     break;
                 case ReefscapeSetpoints.Climb:
+                    SetSetpoint(climb);
                     break;
                 case ReefscapeSetpoints.Climbed:
+                    SetSetpoint(climbed);
                     break;
             }
             // SetSetpoint(intake);

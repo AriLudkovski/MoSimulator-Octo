@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8a12d115c28e91469126d8a99d437f9, type: 3}
   m_Name: Climb
   m_EditorClassIdentifier: 
-  elevatorHeight: 34
-  armAngle: -130.7
+  elevatorHeight: 0
+  armAngle: -260
+  climbArmAngle: 84.8
+  climbWristAngle: -79
+  droppyThingAngle: 84.8
