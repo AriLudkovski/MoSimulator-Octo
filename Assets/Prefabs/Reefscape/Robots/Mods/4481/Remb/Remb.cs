@@ -114,7 +114,7 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
         private void UpdateSetpoints()
         {
             elevator.SetTarget(_elevatorTargetHeight);
-            arm.SetTargetAngle(_armTargetAngle).withAxis(JointAxis.X);
+            arm.SetTargetAngle(_armTargetAngle).noWrap(10).withAxis(JointAxis.X);
             climbArm.SetTargetAngle(_climbArmTargetAngle).withAxis(JointAxis.X);
             climbWrist.SetTargetAngle(_climbWristTargetAngle).withAxis(JointAxis.X);
             droppyThing.SetTargetAngle(_droppyThingTargetAngle).withAxis(JointAxis.X);
