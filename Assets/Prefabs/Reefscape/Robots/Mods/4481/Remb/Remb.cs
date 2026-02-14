@@ -235,9 +235,13 @@ namespace Prefabs.Reefscape.Robots.Mods._4481.Remb
                 {
                     _coralController.ReleaseGamePieceWithForce(new Vector3(0, 0, -5));
                 }
-                else if (CurrentRobotMode == ReefscapeRobotMode.Coral)
+                else if (LastSetpoint == ReefscapeSetpoints.L3 || LastSetpoint == ReefscapeSetpoints.L2)
                 {
                     _coralController.ReleaseGamePieceWithForce(new Vector3(0, 0, 10));
+                }
+                else if (CurrentRobotMode == ReefscapeRobotMode.Coral)
+                {
+                    _coralController.ReleaseGamePieceWithForce(new Vector3(0, 0, 5));
                 }
             }
         }
